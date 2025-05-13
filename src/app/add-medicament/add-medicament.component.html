@@ -1,0 +1,80 @@
+  <div class="container">
+    <div>
+      <h2>Ajouter un Médicament</h2>
+    </div>
+
+    <form>
+      <div class="row mb-2">
+        <!-- Champ Nom du Médicament -->
+        <div class="col-sm-6 col-md-4">
+          <label class="form-label">Nom Médicament</label>
+          <input type="text" 
+                [(ngModel)]="newMedicament.nomMed"
+                name="nomMed" 
+                class="form-control"
+                required>
+        </div>
+
+        <!-- Champ Prix -->
+        <div class="col-sm-6 col-md-4">
+          <label class="form-label">Prix Médicament</label>
+          <input type="number" 
+                [(ngModel)]="newMedicament.prixMed"
+                name="prixMed" 
+                class="form-control"
+                step="0.01"
+                min="0"
+                required>
+        </div>
+
+        <!-- Date de Création -->
+        <div class="col-sm-6 col-md-4 mt-2">
+          <label class="form-label">Date Création</label>
+          <input type="date" 
+                [(ngModel)]="newMedicament.dateCreation"
+                name="dateCreation" 
+                class="form-control"
+                required>
+        </div>
+
+        <!-- Date d'Expiration -->
+        <div class="col-sm-6 col-md-4 mt-2">
+          <label class="form-label">Date Expiration</label>
+          <input type="date" 
+                [(ngModel)]="newMedicament.dateExpiration"
+                name="dateExpiration" 
+                class="form-control"
+                required>
+        </div>
+
+        <!-- Sélection de Classification -->
+        <div class="col-sm-6 col-md-4 mt-2">
+          <label class="form-label">Classification</label>
+          <select class="form-control" 
+                  [(ngModel)]="newIdClass" 
+                  name="idClass"
+                  required>
+            <option *ngFor="let classif of classifications" 
+                    [ngValue]="classif.idClass">
+              {{ classif.nomClass }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Bouton de soumission -->
+      <div class="mt-3">
+        <button type="button" 
+                (click)="addMedicament()" 
+                class="btn btn-success"
+                [disabled]="!isFormValid()">
+          Ajouter
+        </button>
+      </div>
+
+      <!-- Message de feedback -->
+      <div *ngIf="message" class="mt-2 alert alert-info">
+        {{ message }}
+      </div>
+    </form>
+  </div>

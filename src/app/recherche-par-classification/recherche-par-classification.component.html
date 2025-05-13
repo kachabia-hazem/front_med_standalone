@@ -1,0 +1,75 @@
+<div class="container">
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <!-- Sélection de classification -->
+      <div class="row mb-4">
+        <div class="col-sm-6 col-md-4 col-lg-4">
+          <label class="form-label">Classifications</label>
+          <select class="form-control form-control-lg"
+                  id="idClass"
+                  name="idClass"
+                  [(ngModel)]="IdClassification"
+                  (change)="onChange()">
+            @if (classifications && classifications.length) {
+              @for (classif of classifications; track classif.idClass) {
+                <option [value]="classif.idClass">{{ classif.nomClass }}</option>
+              }
+            } @else {
+              <option disabled>Aucune classification disponible</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <!-- Tableau des résultats -->
+      @if (isLoading) {
+        <div class="text-center mt-4">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Chargement...</span>
+          </div>
+        </div>
+      } @else {
+        @if (medicaments && medicaments.length) {
+          <table class="table table-striped mt-3">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Prix</th>
+                <th>Date Création</th>
+                <th>Date Expiration</th>
+                <th>Classification</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (medicament of medicaments; track medicament.idMed) {
+                <tr>
+                  <td>{{ medicament.idMed }}</td>
+                  <td>{{ medicament.nomMed }}</td>
+                  <td>{{ medicament.prixMed | currency:'EUR':'symbol':'1.2-2' }}</td>
+                  <td>{{ medicament.dateCreation | date:'dd/MM/yyyy' }}</td>
+                  <td>{{ medicament.dateExpiration | date:'dd/MM/yyyy' }}</td>
+                  <td>
+                    @if (medicament.classification) {
+                      {{ medicament.classification.nomClass }}
+                    } @else {
+                      <span class="text-muted">Non classé</span>
+                    }
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        } @else {
+          <div class="alert alert-info mt-3">
+            @if (errorMessage) {
+              {{ errorMessage }}
+            } @else {
+              Aucun médicament trouvé pour cette classification
+            }
+          </div>
+        }
+      }
+    </div>
+  </div>
+</div>

@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="card shadow mb-4">
+    <div class="card-body">
+
+      <div *ngIf="medicaments && medicaments.length > 0; else noMedicaments">
+        <table class="table table-striped mt-3">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nom</th>
+              <th>Prix</th>
+              <th>Date Création</th>
+              <th>Date Expiration</th>
+              <th>Classification</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let medicament of medicaments; let i = index">
+              <td>{{ medicament.idMed }}</td>
+              <td>{{ medicament.nomMed }}</td>
+              <td>{{ medicament.prixMed }}</td>
+              <td>{{ medicament.dateCreation | date: 'dd/MM/yyyy' }}</td>
+              <td>{{ medicament.dateExpiration | date: 'dd/MM/yyyy' }}</td>
+              <td>{{ medicament.classification.nomClass }}</td>
+              <td>
+                <button class="btn btn-danger btn-sm me-1" (click)="onDelete(medicament)">
+                  Supprimer
+                </button>
+                <a class="btn btn-primary btn-sm" [routerLink]="['/update-medicament', medicament.idMed]">
+                  Modifier
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ng-template #noMedicaments>
+        <div class="text-center mt-3">
+          <h5>Aucun médicament trouvé !</h5>
+        </div>
+      </ng-template>
+
+    </div>
+
+    <div class="container">
+      <div class="col-sm-4 col-md-4 col-lg-4 mb-4">
+        <label for="nomClass">Rechercher par nom</label>
+        <input
+          type="text"
+          class="form-control"
+          id="nomClass"
+          placeholder="Tapez un nom..."
+          (keyup)="onKeyup($any($event.target).value)"
+        />
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,41 @@
+<form>
+    <!-- Champ ID (caché en mode ajout) -->
+    <div [hidden]="modeAjout" class="mb-3">
+        <label class="form-label">ID Classification</label>
+        <input type="text" 
+               [readonly]="true" 
+               [(ngModel)]="classification.idClass" 
+               name="idClass" 
+               class="form-control w-25">
+    </div>
+
+    <!-- Champ Nom -->
+    <div class="mb-3">
+        <label class="form-label">Nom Classification</label>
+        <input type="text" 
+               [(ngModel)]="classification.nomClass" 
+               name="nomClass" 
+               class="form-control"
+               placeholder="Entrez un nom de classification..."
+               required>
+    </div>
+
+    <!-- Champ Description -->
+    <div class="mb-3">
+        <label class="form-label">Description</label>
+        <textarea [(ngModel)]="classification.descriptionClass" 
+                 name="descriptionClass" 
+                 class="form-control"
+                 placeholder="Entrez une description..."></textarea>
+    </div>
+
+    <!-- Bouton de soumission -->
+    <div class="mt-3">
+        <button type="submit" 
+                [disabled]="!classification.nomClass" 
+                class="btn btn-success"
+                (click)="saveClassification()">
+            {{ modeAjout ? 'Ajouter' : 'Modifier' }}
+        </button>
+    </div>
+</form>

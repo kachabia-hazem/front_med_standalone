@@ -1,0 +1,41 @@
+<div class="container">
+  <!-- Formulaire d'ajout/modification -->
+  <div class="mb-4">
+    <app-update-classification 
+      [classification]="updatedClassification"
+      (classificationUpdated)="classificationUpdated($event)"
+      [modeAjout]="ajout">
+    </app-update-classification>
+  </div>
+
+  <!-- Liste des classifications -->
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nom Classification</th>
+            <th>Description</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for(classif of classifications; track classif.idClass) {
+            <tr>
+              <td>{{ classif.idClass }}</td>
+              <td>{{ classif.nomClass }}</td>
+              <td>{{ classif.descriptionClass || '-' }}</td>
+              <td>
+                <button class="btn btn-primary btn-sm me-2" 
+                        (click)="updateClassification(classif)">
+                  <i class="fas fa-edit"></i> Modifier
+                </button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

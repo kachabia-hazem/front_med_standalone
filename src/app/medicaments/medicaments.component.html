@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="card shadow mb-4">
+    <div class="card-body">
+
+      @if (medicaments.length > 0) {
+        <table class="table table-striped mt-3">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nom</th>
+              <th>Prix</th>
+              <th>Date Création</th>
+              <th>Date Expiration</th>
+              <th>Classification</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (medicament of medicaments; track medicament.idMed; let i = $index) {
+              <tr>
+                <td>{{ medicament.idMed }}</td>
+                <td>{{ medicament.nomMed }}</td>
+                <td>{{ medicament.prixMed }}</td>
+                <td>{{ medicament.dateCreation | date: 'dd/MM/yyyy' }}</td>
+                <td>{{ medicament.dateExpiration | date: 'dd/MM/yyyy' }}</td>
+                <td>{{ medicament.classification.nomClass }}</td>
+                <td>
+                  @if(authService.isAdmin()) {
+                  <a class="btn btn-danger btn-sm me-1" (click)="supprimerMedicament(medicament)">Supprimer</a>
+                  <a class="btn btn-primary btn-sm" [routerLink]="['/update-medicament', medicament.idMed]">Modifier</a>
+                  }
+                </td>
+              </tr>
+            } @empty {
+              <tr>
+                <td colspan="7" class="text-center">
+                  <h5>Aucun médicament trouvé !</h5>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      }
+
+    </div>
+  </div>
+</div>
